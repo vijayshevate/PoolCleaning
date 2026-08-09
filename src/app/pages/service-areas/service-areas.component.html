@@ -1,0 +1,55 @@
+<section class="section">
+  <div class="container">
+    <div class="section__head">
+      <h1>Proudly Serving Phoenix<br />&amp; Surrounding Areas</h1>
+      <p>Enter your ZIP code to check availability.</p>
+      <form class="zip" (ngSubmit)="check()">
+        <input type="text" name="zip" placeholder="Enter ZIP code" maxlength="5" [(ngModel)]="zip" />
+        <button class="btn btn--primary" type="submit">Check Now</button>
+      </form>
+      @if (result(); as check) {
+        @if (check.serviced) {
+          <p class="zip__result zip__result--ok">
+            Great news — we service {{ check.zip }} ({{ check.city }}).
+            <a routerLink="/book">Book a visit</a>
+          </p>
+        } @else {
+          <p class="zip__result zip__result--no">
+            We do not have a route in {{ check.zip }} yet.
+            <a routerLink="/contact">Join the waitlist</a>
+          </p>
+        }
+      }
+    </div>
+
+    <div class="areas">
+      <ul class="areas__list">
+        @for (area of areas; track area.city) {
+          <li>
+            <app-icon name="pin" [size]="18" />
+            <div>
+              <strong>{{ area.city }}</strong>
+              <span class="muted">{{ area.zips.join(', ') }}</span>
+            </div>
+          </li>
+        }
+        <li class="areas__more muted">and more!</li>
+      </ul>
+
+      <div class="media-placeholder areas__map">
+        <app-icon name="pin" [size]="48" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="stats">
+  <div class="container grid grid--3">
+    @for (stat of stats; track stat.label) {
+      <div class="stats__item">
+        <strong>{{ stat.value }}</strong>
+        <span>{{ stat.label }}</span>
+      </div>
+    }
+  </div>
+</section>

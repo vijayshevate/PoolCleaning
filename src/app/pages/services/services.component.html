@@ -1,0 +1,32 @@
+<section class="section">
+  <div class="container">
+    <div class="section__head">
+      <h1>Our Services</h1>
+      <p>Everything your pool needs to stay clean, safe &amp; beautiful.</p>
+    </div>
+
+    <div class="grid grid--3">
+      @for (service of services; track service.slug) {
+        <article class="card service">
+          <div class="media-placeholder service__media"><span>{{ service.name }}</span></div>
+          <span class="service__icon"><app-icon [name]="service.icon" [size]="20" /></span>
+          <h3>{{ service.name }}</h3>
+          <p class="muted">{{ service.description }}</p>
+          <a class="service__link" [routerLink]="['/services', service.slug]">
+            Learn More <app-icon name="arrow" [size]="16" />
+          </a>
+        </article>
+      }
+    </div>
+
+    <div class="card helper">
+      <div>
+        <strong>Not sure what service you need?</strong>
+        <p class="muted">Chat with our AI Pool Concierge — it will size up your pool and recommend a plan.</p>
+      </div>
+      <button class="btn btn--primary" type="button" (click)="askConcierge()">
+        <app-icon name="chat" [size]="18" /> Start Chat
+      </button>
+    </div>
+  </div>
+</section>

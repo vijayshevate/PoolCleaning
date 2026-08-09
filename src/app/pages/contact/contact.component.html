@@ -1,0 +1,79 @@
+<section class="section">
+  <div class="container contact">
+    <div>
+      <h1>Let's Talk!</h1>
+      <p class="muted">We're here to help with your pool care needs.</p>
+
+      <ul class="info">
+        <li>
+          <app-icon name="phone" [size]="18" />
+          <div>
+            <strong>Call Us</strong>
+            <a [href]="company.phoneHref">{{ company.phone }}</a>
+          </div>
+        </li>
+        <li>
+          <app-icon name="mail" [size]="18" />
+          <div>
+            <strong>Email Us</strong>
+            <a [href]="'mailto:' + company.email">{{ company.email }}</a>
+          </div>
+        </li>
+        <li>
+          <app-icon name="clock" [size]="18" />
+          <div>
+            <strong>Business Hours</strong>
+            @for (line of company.hours; track line) {
+              <span class="muted">{{ line }}</span>
+            }
+          </div>
+        </li>
+        <li>
+          <app-icon name="pin" [size]="18" />
+          <div>
+            <strong>Service Areas</strong>
+            <span class="muted">{{ areas.join(', ') }} and surrounding areas.</span>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>Send us a message</h3>
+      <form (ngSubmit)="submit()">
+        <div class="field">
+          <label for="cname">Name</label>
+          <input id="cname" name="cname" type="text" [(ngModel)]="name" />
+        </div>
+        <div class="field">
+          <label for="cphone">Phone</label>
+          <input id="cphone" name="cphone" type="tel" [(ngModel)]="phone" />
+        </div>
+        <div class="field">
+          <label for="cemail">Email</label>
+          <input id="cemail" name="cemail" type="email" [(ngModel)]="email" />
+        </div>
+        <div class="field">
+          <label for="czip">ZIP code</label>
+          <input id="czip" name="czip" type="text" maxlength="5" [(ngModel)]="zip" />
+        </div>
+        <div class="field">
+          <label for="cmessage">How can we help?</label>
+          <textarea id="cmessage" name="cmessage" rows="4" [(ngModel)]="message"></textarea>
+        </div>
+        @if (submitted() && !valid()) {
+          <p class="field__error">Please add your name, a valid email and a short message.</p>
+        }
+        <button class="btn btn--primary btn--block" type="submit">Send Message</button>
+        @if (sent()) {
+          <p class="ok">Thanks! We will get back to you within one business hour.</p>
+        }
+      </form>
+    </div>
+
+    <div class="media-placeholder map">
+      <app-icon name="pin" [size]="40" />
+      <span>{{ company.address }}, {{ company.cityState }}</span>
+    </div>
+  </div>
+</section>

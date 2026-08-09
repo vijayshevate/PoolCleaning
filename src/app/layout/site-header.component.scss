@@ -1,0 +1,131 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--line);
+}
+
+.header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 68px;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--navy);
+}
+
+.brand:hover {
+  text-decoration: none;
+}
+
+.brand__mark {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  background: var(--brand);
+  color: #fff;
+}
+
+.brand__text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.05;
+}
+
+.brand__text strong {
+  font-size: 1.05rem;
+  letter-spacing: 0.02em;
+}
+
+.brand__text small {
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  color: var(--brand);
+  font-weight: 700;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+
+.nav__link {
+  color: var(--ink);
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 6px 0;
+  border-bottom: 2px solid transparent;
+}
+
+.nav__link:hover {
+  color: var(--brand);
+  text-decoration: none;
+}
+
+.nav__link--active {
+  color: var(--brand);
+  border-bottom-color: var(--brand);
+}
+
+.header__toggle {
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+  background: none;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 9px 8px;
+  cursor: pointer;
+}
+
+.header__toggle span {
+  display: block;
+  width: 18px;
+  height: 2px;
+  background: var(--navy);
+  border-radius: 2px;
+}
+
+@media (max-width: 1040px) {
+  .header__toggle {
+    display: flex;
+  }
+
+  .nav {
+    position: absolute;
+    top: 68px;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 4px;
+    padding: 14px 20px 20px;
+    background: #fff;
+    border-bottom: 1px solid var(--line);
+    display: none;
+  }
+
+  .nav--open {
+    display: flex;
+  }
+
+  .nav__link {
+    padding: 10px 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .nav__cta {
+    margin-top: 10px;
+  }
+}

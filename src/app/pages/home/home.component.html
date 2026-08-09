@@ -1,0 +1,123 @@
+<section class="hero">
+  <div class="container hero__inner">
+    <div>
+      <p class="eyebrow">{{ company.tagline }}</p>
+      <h1>Your Pool<br />Deserves the Best.<br /><span class="accent">We Keep It Badass.</span></h1>
+      <p class="hero__lede">
+        Professional pool cleaning &amp; maintenance that keeps your pool crystal clear, safe and swim-ready.
+      </p>
+
+      <ul class="hero__promises">
+        @for (promise of promises; track promise) {
+          <li><app-icon name="check" [size]="18" /> {{ promise }}</li>
+        }
+      </ul>
+
+      <div class="hero__actions">
+        <a class="btn btn--primary" routerLink="/estimate">Get My Free Estimate</a>
+        <a class="btn btn--ghost" [href]="company.phoneHref">
+          <app-icon name="phone" [size]="18" /> Call {{ company.phone }}
+        </a>
+      </div>
+    </div>
+
+    <div class="hero__media media-placeholder">
+      <span>Sparkling pool photo</span>
+    </div>
+  </div>
+</section>
+
+<section class="section section--soft">
+  <div class="container">
+    <div class="section__head">
+      <p class="eyebrow">What we do</p>
+      <h2>Everything your pool needs</h2>
+    </div>
+
+    <div class="what-we-do">
+      @for (service of services; track service.slug) {
+        <a class="what-we-do__item" [routerLink]="['/services', service.slug]">
+          <span class="what-we-do__icon"><app-icon [name]="service.icon" [size]="24" /></span>
+          <strong>{{ service.name }}</strong>
+        </a>
+      }
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section__head">
+      <p class="eyebrow">Transformation gallery</p>
+      <h2>Before &amp; After</h2>
+      <p>Real pools we rescued in the Phoenix valley.</p>
+    </div>
+
+    <div class="grid grid--2">
+      @for (item of transformations.slice(0, 2); track item.title) {
+        <app-before-after [item]="item" />
+      }
+    </div>
+
+    <p class="center">
+      <a class="btn btn--subtle" routerLink="/gallery">View More Results</a>
+    </p>
+  </div>
+</section>
+
+<section class="section section--soft">
+  <div class="container">
+    <div class="section__head">
+      <p class="eyebrow">How it works</p>
+      <h2>Three steps to a clean pool</h2>
+    </div>
+    <div class="grid grid--3">
+      @for (step of steps; track step.title; let i = $index) {
+        <article class="card step">
+          <span class="step__num">{{ i + 1 }}</span>
+          <h3>{{ step.title }}</h3>
+          <p class="muted">{{ step.detail }}</p>
+        </article>
+      }
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section__head">
+      <p class="eyebrow">Reviews</p>
+      <h2>Phoenix homeowners love us</h2>
+    </div>
+    <div class="grid grid--3">
+      @for (review of reviews; track review.author) {
+        <app-review-card [review]="review" />
+      }
+    </div>
+    <p class="center"><a class="btn btn--subtle" routerLink="/reviews">Read all reviews</a></p>
+  </div>
+</section>
+
+<section class="stats">
+  <div class="container grid grid--3">
+    @for (stat of stats; track stat.label) {
+      <div class="stats__item">
+        <strong>{{ stat.value }}</strong>
+        <span>{{ stat.label }}</span>
+      </div>
+    }
+  </div>
+</section>
+
+<section class="cta">
+  <div class="container cta__inner">
+    <div>
+      <h2>Ready for a pool you never think about?</h2>
+      <p>Get a transparent price in under a minute — no phone tag, no sales pressure.</p>
+    </div>
+    <div class="cta__actions">
+      <a class="btn btn--primary" routerLink="/estimate">Get My Free Estimate</a>
+      <a class="btn btn--subtle" routerLink="/book">Book a Cleaning</a>
+    </div>
+  </div>
+</section>

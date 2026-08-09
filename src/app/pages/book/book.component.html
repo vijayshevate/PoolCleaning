@@ -1,0 +1,158 @@
+<section class="section">
+  <div class="container narrow">
+    <ol class="stepper">
+      @for (label of steps; track label; let i = $index) {
+        <li class="stepper__item" [class.stepper__item--active]="i === step()" [class.stepper__item--done]="i < step()">
+          <span class="stepper__num">{{ i < step() ? '✓' : i + 1 }}</span>
+          <span class="stepper__label">{{ label }}</span>
+        </li>
+      }
+    </ol>
+
+    <div class="card wizard">
+      @switch (step()) {
+        @case (0) {
+          <h2>Which service do you need?</h2>
+          <div class="picks">
+            @for (service of services; track service.slug) {
+              <button
+                type="button"
+                class="pick"
+                [class.pick--selected]="serviceSlug === service.slug"
+                (click)="serviceSlug = service.slug"
+              >
+                <app-icon [name]="service.icon" [size]="20" />
+                <strong>{{ service.name }}</strong>
+                <span class="muted">{{ service.description }}</span>
+              </button>
+            }
+          </div>
+
+          <div class="field">
+            <label for="plan">Plan</label>
+            <select id="plan" name="plan" [(ngModel)]="planId">
+              <option [ngValue]="null">Quote on site</option>
+              @for (plan of plans; track plan.id) {
+                <option [ngValue]="plan.id">{{ plan.name }} — ${{ plan.price }}{{ plan.cadence }}</option>
+              }
+            </select>
+          </div>
+        }
+
+        @case (1) {
+          <h2>Select a Date &amp; Time</h2>
+          <div class="schedule">
+            <div class="calendar">
+              <div class="calendar__head">
+                <button type="button" (click)="shiftMonth(-1)" aria-label="Previous month">&lsaquo;</button>
+                <strong>{{ monthLabel() }}</strong>
+                <button type="button" (click)="shiftMonth(1)" aria-label="Next month">&rsaquo;</button>
+              </div>
+              <div class="calendar__grid">
+                @for (weekday of weekdays; track weekday) {
+                  <span class="calendar__weekday">{{ weekday }}</span>
+                }
+                @for (day of calendar(); track day.iso) {
+                  @if (day.label) {
+                    <button
+                      type="button"
+                      class="calendar__day"
+                      [class.calendar__day--selected]="selectedDate === day.iso"
+                      [disabled]="!day.selectable"
+                      (click)="pickDay(day)"
+                    >{{ day.label }}</button>
+                  } @else {
+                    <span></span>
+                  }
+                }
+              </div>
+              <p class="muted small">Sundays are closed.</p>
+            </div>
+
+            <div class="slots">
+              <strong>Available Times</strong>
+              <p class="muted small">{{ selectedDate ? formatDate(selectedDate) : 'Pick a date first' }}</p>
+              @for (slot of timeSlots; track slot) {
+                <button
+                  type="button"
+                  class="slot"
+                  [class.slot--selected]="selectedTime === slot"
+                  [disabled]="!selectedDate"
+                  (click)="pickTime(slot)"
+                >{{ slot }}</button>
+              }
+            </div>
+          </div>
+        }
+
+        @case (2) {
+          <h2>Where are we heading?</h2>
+          <div class="grid grid--2">
+            <div class="field">
+              <label for="bname">Full name</label>
+              <input id="bname" name="bname" type="text" [(ngModel)]="name" />
+            </div>
+            <div class="field">
+              <label for="bphone">Phone</label>
+              <input id="bphone" name="bphone" type="tel" [(ngModel)]="phone" />
+            </div>
+          </div>
+          <div class="field">
+            <label for="bemail">Email</label>
+            <input id="bemail" name="bemail" type="email" [(ngModel)]="email" />
+          </div>
+          <div class="field">
+            <label for="baddress">Street address</label>
+            <input id="baddress" name="baddress" type="text" [(ngModel)]="address" />
+          </div>
+          <div class="grid grid--2">
+            <div class="field">
+              <label for="bcity">City</label>
+              <input id="bcity" name="bcity" type="text" [(ngModel)]="city" />
+            </div>
+            <div class="field">
+              <label for="bzip">ZIP</label>
+              <input id="bzip" name="bzip" type="text" maxlength="5" [(ngModel)]="zip" />
+            </div>
+          </div>
+          <div class="field">
+            <label for="bnotes">Gate code, dogs, anything else?</label>
+            <textarea id="bnotes" name="bnotes" rows="3" [(ngModel)]="notes"></textarea>
+          </div>
+          @if (submitted() && !detailsValid()) {
+            <p class="field__error">Please complete name, email, phone, address and a 5-digit ZIP.</p>
+          }
+        }
+
+        @case (3) {
+          <h2>Confirm your visit</h2>
+          <ul class="summary">
+            <li><span class="muted">Service</span><strong>{{ selectedService()?.name }}</strong></li>
+            <li><span class="muted">Plan</span><strong>{{ selectedPlan()?.name ?? 'Quote on site' }}</strong></li>
+            <li><span class="muted">Date</span><strong>{{ formatDate(selectedDate) }}</strong></li>
+            <li><span class="muted">Time</span><strong>{{ selectedTime }}</strong></li>
+            <li><span class="muted">Address</span><strong>{{ address }}, {{ city }} {{ zip }}</strong></li>
+            <li>
+              <span class="muted">Estimated price</span>
+              <strong>
+                @if (selectedPlan(); as plan) {
+                  ${{ plan.price }}{{ plan.cadence }}
+                } @else {
+                  Quoted on site
+                }
+              </strong>
+            </li>
+          </ul>
+          <p class="muted small">You will get a confirmation by email and text. Cancel or reschedule any time.</p>
+        }
+      }
+
+      <div class="wizard__nav">
+        <button class="btn btn--subtle" type="button" (click)="back()" [disabled]="step() === 0">Back</button>
+        <button class="btn btn--primary" type="button" (click)="next()" [disabled]="!canAdvance()">
+          {{ step() === 3 ? 'Confirm Booking' : 'Next Step' }}
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
