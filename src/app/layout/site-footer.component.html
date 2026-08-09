@@ -1,0 +1,61 @@
+<footer class="footer">
+  <div class="container footer__grid">
+    <div>
+      <p class="footer__brand"><strong>BADASS</strong> <span>POOL CLEAN</span></p>
+      <p class="footer__blurb">
+        Professional pool cleaning &amp; maintenance that keeps your pool crystal clear, safe and swim-ready.
+      </p>
+      <p class="footer__contact">
+        {{ company.phone }}<br />
+        {{ company.email }}
+      </p>
+    </div>
+
+    <div>
+      <h4>Services</h4>
+      <ul>
+        @for (service of services; track service.slug) {
+          <li><a [routerLink]="['/services', service.slug]">{{ service.name }}</a></li>
+        }
+      </ul>
+    </div>
+
+    <div>
+      <h4>Company</h4>
+      <ul>
+        <li><a routerLink="/about">About Us</a></li>
+        <li><a routerLink="/reviews">Reviews</a></li>
+        <li><a routerLink="/service-areas">Service Areas</a></li>
+        <li><a routerLink="/blog">Blog</a></li>
+        <li><a routerLink="/contact">Contact Us</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h4>Support</h4>
+      <ul>
+        <li><a routerLink="/faqs">FAQs</a></li>
+        <li><a routerLink="/pricing">Pricing</a></li>
+        <li><a routerLink="/portal">My Account</a></li>
+        <li><a routerLink="/estimate">Get an Estimate</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h4>Newsletter</h4>
+      <p class="footer__blurb">Get pool care tips and special offers.</p>
+      <form class="footer__form" (ngSubmit)="subscribe()">
+        <input type="email" name="email" placeholder="Enter your email" [(ngModel)]="email" required />
+        <button class="btn btn--primary btn--block" type="submit">Subscribe</button>
+      </form>
+      @if (subscribed()) {
+        <p class="footer__ok">Thanks! You are on the list.</p>
+      }
+    </div>
+  </div>
+
+  <div class="container footer__bottom">
+    <span>&copy; {{ year }} {{ company.name }}. All rights reserved.</span>
+    <span>Licensed &nbsp;•&nbsp; Insured &nbsp;•&nbsp; 100% Satisfaction Guarantee</span>
+  </div>
+</footer>

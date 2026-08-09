@@ -1,0 +1,49 @@
+@if (open()) {
+  <section class="chat" aria-label="AI Pool Concierge">
+    <header class="chat__head">
+      <div>
+        <strong>AI Pool Concierge</strong>
+        <small>Estimates, booking &amp; pool questions</small>
+      </div>
+      <button type="button" class="chat__close" (click)="toggle()" aria-label="Close chat">&times;</button>
+    </header>
+
+    <div class="chat__log" #log>
+      @for (message of concierge.messages(); track $index) {
+        <div class="msg" [class.msg--user]="message.role === 'user'">
+          <p class="msg__bubble">{{ message.text }}</p>
+          @if (message.role === 'assistant' && message.quickReplies?.length) {
+            <div class="msg__replies">
+              @for (reply of message.quickReplies; track reply) {
+                <button type="button" class="chip" (click)="handleQuickReply(reply)">{{ reply }}</button>
+              }
+            </div>
+          }
+        </div>
+      }
+      @if (thinking()) {
+        <p class="msg__typing">Concierge is typing…</p>
+      }
+    </div>
+
+    @if (concierge.handedOff()) {
+      <p class="chat__handoff">A human technician has been notified and will follow up within one business hour.</p>
+    }
+
+    <form class="chat__form" (ngSubmit)="send()">
+      <input
+        type="text"
+        name="draft"
+        placeholder="Ask about pricing, booking, green pools…"
+        [(ngModel)]="draft"
+        autocomplete="off"
+      />
+      <button class="btn btn--primary" type="submit" [disabled]="thinking()">Send</button>
+    </form>
+  </section>
+}
+
+<button type="button" class="launcher" (click)="toggle()">
+  <app-icon name="chat" [size]="20" />
+  <span>{{ open() ? 'Hide Chat' : 'Chat with our Pool Expert' }}</span>
+</button>

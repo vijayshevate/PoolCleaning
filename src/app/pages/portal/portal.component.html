@@ -1,0 +1,180 @@
+<section class="portal">
+  <div class="container portal__layout">
+    <aside class="side">
+      <p class="side__brand"><strong>BADASS</strong><span>POOL CLEAN</span></p>
+      <nav>
+        @for (item of nav; track item.id) {
+          <button
+            type="button"
+            class="side__link"
+            [class.side__link--active]="tab() === item.id"
+            (click)="select(item.id)"
+          >
+            <app-icon [name]="item.icon" [size]="18" /> {{ item.label }}
+          </button>
+        }
+        <a class="side__link" routerLink="/"><app-icon name="logout" [size]="18" /> Logout</a>
+      </nav>
+    </aside>
+
+    <div class="panel">
+      <h1>Welcome back, {{ customerName }}!</h1>
+
+      @switch (tab()) {
+        @case ('dashboard') {
+          <div class="grid grid--3 tiles">
+            <article class="card tile">
+              <span class="muted">Next Appointment</span>
+              <strong>{{ nextAppointment().date }}</strong>
+              <span class="muted">{{ nextAppointment().time }} · {{ nextAppointment().service }}</span>
+            </article>
+            <article class="card tile">
+              <span class="muted">Pool Status</span>
+              <strong class="ok">Excellent</strong>
+              <span class="muted">Everything looks good</span>
+            </article>
+            <article class="card tile">
+              <span class="muted">Account Balance</span>
+              <strong>$0.00</strong>
+              <span class="muted">Up to date</span>
+            </article>
+          </div>
+
+          <div class="grid grid--2">
+            <article class="card">
+              <h3>Water Balance (last visit)</h3>
+              <ul class="water">
+                @for (metric of waterBalance; track metric.label) {
+                  <li>
+                    <span class="muted">{{ metric.label }}</span>
+                    <strong>{{ metric.value }}</strong>
+                    <span class="pill" [class.pill--success]="metric.verdict === 'Good'">{{ metric.verdict }}</span>
+                  </li>
+                }
+              </ul>
+            </article>
+
+            <article class="card">
+              <h3>Need Help?</h3>
+              <p class="muted">Chat with our support team or ask the AI Pool Concierge any time.</p>
+              <a class="btn btn--primary" routerLink="/contact">Contact Support</a>
+            </article>
+          </div>
+
+          <article class="card">
+            <h3>Service History</h3>
+            <table class="table">
+              <thead>
+                <tr><th>Date</th><th>Service</th><th>Technician</th><th>Status</th></tr>
+              </thead>
+              <tbody>
+                @for (visit of history; track visit.date) {
+                  <tr>
+                    <td>{{ visit.date }}</td>
+                    <td>{{ visit.service }}</td>
+                    <td>{{ visit.technician }}</td>
+                    <td><span class="pill pill--success">{{ visit.status }}</span></td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </article>
+        }
+
+        @case ('appointments') {
+          <article class="card">
+            <h3>Upcoming</h3>
+            <p>
+              <strong>{{ nextAppointment().service }}</strong> — {{ nextAppointment().date }} at
+              {{ nextAppointment().time }} (ref {{ nextAppointment().reference }})
+            </p>
+            <div class="row">
+              <a class="btn btn--ghost" routerLink="/book">Book another visit</a>
+              <a class="btn btn--subtle" routerLink="/contact">Reschedule</a>
+            </div>
+          </article>
+        }
+
+        @case ('history') {
+          <article class="card">
+            <h3>Pool History &amp; Service Reports</h3>
+            <table class="table">
+              <thead>
+                <tr><th>Date</th><th>Service</th><th>Technician</th><th>Report</th></tr>
+              </thead>
+              <tbody>
+                @for (visit of history; track visit.date) {
+                  <tr>
+                    <td>{{ visit.date }}</td>
+                    <td>{{ visit.service }}</td>
+                    <td>{{ visit.technician }}</td>
+                    <td><span class="muted">Water report + photos</span></td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </article>
+        }
+
+        @case ('invoices') {
+          <article class="card">
+            <h3>Invoices</h3>
+            <table class="table">
+              <thead>
+                <tr><th>Invoice</th><th>Date</th><th>Amount</th><th>Status</th></tr>
+              </thead>
+              <tbody>
+                @for (invoice of invoices; track invoice.number) {
+                  <tr>
+                    <td>{{ invoice.number }}</td>
+                    <td>{{ invoice.date }}</td>
+                    <td>${{ invoice.amount }}</td>
+                    <td><span class="pill pill--success">{{ invoice.status }}</span></td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </article>
+        }
+
+        @case ('assessment') {
+          <article class="card">
+            <h3>Photo-Based Pool Assessment</h3>
+            <p class="muted">
+              Upload a photo of your pool and our assessment agent will flag clarity, algae and scale issues.
+            </p>
+            <label class="upload">
+              <input type="file" accept="image/*" (change)="assess($event)" />
+              <app-icon name="camera" [size]="22" />
+              <span>Choose a pool photo</span>
+            </label>
+
+            @if (assessment(); as findings) {
+              <div class="findings">
+                <p class="muted small">Analyzed {{ assessedFile() }}</p>
+                <ul>
+                  @for (finding of findings; track finding) {
+                    <li><app-icon name="check" [size]="16" /> {{ finding }}</li>
+                  }
+                </ul>
+                <a class="btn btn--primary" routerLink="/book">Book the recommended service</a>
+              </div>
+            }
+          </article>
+        }
+
+        @case ('profile') {
+          <article class="card">
+            <h3>Profile</h3>
+            <ul class="water">
+              <li><span class="muted">Name</span><strong>John Doe</strong><span></span></li>
+              <li><span class="muted">Email</span><strong>john.doe&#64;email.com</strong><span></span></li>
+              <li><span class="muted">Phone</span><strong>{{ company.phone }}</strong><span></span></li>
+              <li><span class="muted">Address</span><strong>1234 Sunnyvale Dr, Phoenix, AZ 85048</strong><span></span></li>
+            </ul>
+          </article>
+        }
+      }
+    </div>
+  </div>
+</section>

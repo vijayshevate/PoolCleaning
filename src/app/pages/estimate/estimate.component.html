@@ -1,0 +1,158 @@
+<section class="section">
+  <div class="container narrow">
+    <ol class="stepper">
+      @for (label of steps; track label; let i = $index) {
+        <li class="stepper__item" [class.stepper__item--active]="i === step()" [class.stepper__item--done]="i < step()">
+          <span class="stepper__num">{{ i < step() ? '✓' : i + 1 }}</span>
+          <span class="stepper__label">{{ label }}</span>
+        </li>
+      }
+    </ol>
+
+    <div class="card wizard">
+      <p class="wizard__count muted">Step {{ step() + 1 }} of {{ steps.length }}</p>
+
+      @switch (step()) {
+        @case (0) {
+          <h2>What is the size of your pool?</h2>
+          <div class="options">
+            @for (size of sizes; track size.id) {
+              <button
+                type="button"
+                class="option"
+                [class.option--selected]="poolSize === size.id"
+                (click)="selectSize(size.id)"
+              >
+                <strong>{{ size.label }}</strong>
+                <span class="muted">{{ size.detail }}</span>
+              </button>
+            }
+          </div>
+          <p class="muted small">Not sure?</p>
+          <button
+            type="button"
+            class="option option--wide"
+            [class.option--selected]="poolSize === 'unknown'"
+            (click)="selectSize('unknown')"
+          >
+            <strong>I Don't Know</strong>
+            <span class="muted">Help me estimate</span>
+          </button>
+        }
+
+        @case (1) {
+          <h2>What condition is the water in?</h2>
+          <div class="options">
+            @for (item of conditions; track item.id) {
+              <button
+                type="button"
+                class="option"
+                [class.option--selected]="condition === item.id"
+                (click)="selectCondition(item.id)"
+              >
+                <strong>{{ item.label }}</strong>
+                <span class="muted">{{ item.detail }}</span>
+              </button>
+            }
+          </div>
+        }
+
+        @case (2) {
+          <h2>Tell us about your setup</h2>
+          <div class="checks">
+            @for (feature of featureOptions; track feature) {
+              <label class="check">
+                <input type="checkbox" [checked]="features.includes(feature)" (change)="toggleFeature(feature)" />
+                <span>{{ feature }}</span>
+              </label>
+            }
+          </div>
+
+          <div class="field">
+            <label for="frequency">How often do you want service?</label>
+            <select id="frequency" name="frequency" [(ngModel)]="frequency">
+              <option value="weekly">Weekly (recommended)</option>
+              <option value="biweekly">Every other week</option>
+              <option value="onetime">One-time visit</option>
+            </select>
+          </div>
+        }
+
+        @case (3) {
+          <h2>Where should we send your estimate?</h2>
+          <div class="field">
+            <label for="name">Full name</label>
+            <input id="name" name="name" type="text" [(ngModel)]="name" />
+          </div>
+          <div class="grid grid--2">
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" [(ngModel)]="email" />
+            </div>
+            <div class="field">
+              <label for="phone">Phone</label>
+              <input id="phone" name="phone" type="tel" [(ngModel)]="phone" />
+            </div>
+          </div>
+          <div class="field">
+            <label for="zip">ZIP code</label>
+            <input id="zip" name="zip" type="text" maxlength="5" [(ngModel)]="zip" />
+          </div>
+          @if (submitted() && !contactValid()) {
+            <p class="field__error">Please enter your name, a valid email, a 10-digit phone and a 5-digit ZIP.</p>
+          }
+        }
+
+        @case (4) {
+          @if (result(); as estimate) {
+            <div class="result">
+              <span class="pill pill--success">Your instant estimate</span>
+              @if (estimate.oneTime) {
+                <p class="result__price"><strong>${{ estimate.oneTime }}</strong><span class="muted">per visit</span></p>
+              } @else {
+                <p class="result__price">
+                  <strong>${{ estimate.monthlyLow }} - ${{ estimate.monthlyHigh }}</strong>
+                  <span class="muted">per month</span>
+                </p>
+              }
+
+              @if (recommendedPlan(); as plan) {
+                <p>
+                  We recommend the <strong>{{ plan.name }}</strong> plan — {{ plan.blurb }}
+                </p>
+              }
+
+              @if (estimate.notes.length) {
+                <ul class="notes">
+                  @for (note of estimate.notes; track note) {
+                    <li><app-icon name="check" [size]="16" /> {{ note }}</li>
+                  }
+                </ul>
+              }
+
+              <p class="muted small">
+                A copy was sent to {{ email }}. Prices are firm for standard residential pools; your technician
+                confirms on the first visit.
+              </p>
+
+              <div class="result__actions">
+                <button class="btn btn--primary" type="button" (click)="bookWithPlan()">Book This Service</button>
+                <a class="btn btn--subtle" routerLink="/pricing">Compare plans</a>
+                <button class="btn btn--subtle" type="button" (click)="restart()">Start over</button>
+              </div>
+            </div>
+          }
+        }
+      }
+
+      @if (step() < 4) {
+        <div class="wizard__nav">
+          <button class="btn btn--subtle" type="button" (click)="back()" [disabled]="step() === 0">Back</button>
+          <button class="btn btn--primary" type="button" (click)="next()" [disabled]="!canAdvance()">
+            {{ step() === 3 ? 'See My Estimate' : 'Next Step' }}
+          </button>
+        </div>
+      }
+    </div>
+  </div>
+</section>

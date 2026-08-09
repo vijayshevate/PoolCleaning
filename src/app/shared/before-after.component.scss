@@ -1,0 +1,78 @@
+.ba {
+  margin: 0;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 14px;
+  box-shadow: var(--shadow);
+}
+
+.ba__panes {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.ba__pane {
+  position: relative;
+  min-height: 170px;
+  transition: opacity 0.2s ease;
+}
+
+.ba__pane--dim {
+  opacity: 0.35;
+}
+
+.ba__tag {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  background: rgba(15, 42, 92, 0.85);
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 3px 9px;
+  border-radius: 999px;
+}
+
+.ba__tag--after {
+  background: var(--brand);
+}
+
+.ba__hint {
+  font-size: 0.8rem;
+}
+
+.ba__swap {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  border: 1px solid var(--brand);
+  color: var(--brand);
+  border-radius: 999px;
+  padding: 6px 12px;
+  font: inherit;
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  z-index: 2;
+}
+
+figcaption {
+  margin-top: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+figcaption p {
+  flex-basis: 100%;
+  margin: 0;
+  font-size: 0.85rem;
+}

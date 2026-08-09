@@ -1,0 +1,52 @@
+.service {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.service__media {
+  min-height: 130px;
+  margin-bottom: 16px;
+  font-size: 0.8rem;
+  text-align: center;
+  padding: 0 10px;
+}
+
+.service__icon {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: var(--brand-light);
+  color: var(--brand);
+  margin-bottom: 10px;
+}
+
+.service p {
+  flex: 1;
+  font-size: 0.9rem;
+}
+
+.service__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+.helper {
+  margin-top: 26px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  background: var(--bg-soft);
+}
+
+.helper p {
+  margin: 4px 0 0;
+  font-size: 0.9rem;
+}

@@ -1,0 +1,70 @@
+<section class="section">
+  <div class="container">
+    <div class="section__head">
+      <h1>Simple, Transparent Pricing</h1>
+      <p>No hidden fees. No surprises.</p>
+    </div>
+
+    <div class="tabs" role="tablist">
+      @for (item of tabs; track item.id) {
+        <button
+          type="button"
+          role="tab"
+          class="tabs__btn"
+          [class.tabs__btn--active]="tab() === item.id"
+          [attr.aria-selected]="tab() === item.id"
+          (click)="select(item.id)"
+        >{{ item.label }}</button>
+      }
+    </div>
+
+    @if (tab() === 'addons') {
+      <div class="grid grid--2">
+        @for (addOn of addOns; track addOn.id) {
+          <article class="card addon">
+            <div>
+              <h3>{{ addOn.name }}</h3>
+              <p class="muted">{{ addOn.description }}</p>
+            </div>
+            <strong class="addon__price">${{ addOn.price }}</strong>
+          </article>
+        }
+      </div>
+    } @else {
+      <div class="grid grid--3 plans">
+        @for (plan of plans(); track plan.id) {
+          <article class="card plan" [class.plan--featured]="plan.mostPopular">
+            @if (plan.mostPopular) {
+              <span class="plan__badge">Most Popular</span>
+            }
+            <h3>{{ plan.name }}</h3>
+            <p class="plan__price">
+              <strong>${{ plan.price }}</strong><span class="muted">{{ plan.cadence }}</span>
+            </p>
+            <p class="muted plan__blurb">{{ plan.blurb }}</p>
+            <ul class="plan__features">
+              @for (feature of plan.features; track feature) {
+                <li><app-icon name="check" [size]="17" /> {{ feature }}</li>
+              }
+            </ul>
+            <a
+              class="btn btn--block"
+              [class.btn--primary]="plan.mostPopular"
+              [class.btn--ghost]="!plan.mostPopular"
+              [routerLink]="['/book']"
+              [queryParams]="{ plan: plan.id }"
+            >Get Started</a>
+          </article>
+        }
+      </div>
+    }
+
+    <p class="note">
+      <app-icon name="shield" [size]="18" /> All plans include chemicals and expert service.
+    </p>
+    <p class="note muted">
+      Have questions? Call <a [href]="company.phoneHref">{{ company.phone }}</a> or
+      <a routerLink="/estimate">run an instant estimate</a>.
+    </p>
+  </div>
+</section>
