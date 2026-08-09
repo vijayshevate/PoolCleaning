@@ -42,7 +42,7 @@ export class EstimateComponent {
     return result ? PRICING_PLANS.find(plan => plan.id === result.recommendedPlanId) : undefined;
   });
 
-  readonly canAdvance = computed(() => {
+  canAdvance(): boolean {
     switch (this.step()) {
       case 0:
         return this.poolSize !== null;
@@ -51,7 +51,7 @@ export class EstimateComponent {
       default:
         return true;
     }
-  });
+  }
 
   selectSize(size: PoolSize): void {
     this.poolSize = size;

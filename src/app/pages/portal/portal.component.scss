@@ -142,6 +142,7 @@
 }
 
 .upload {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -156,10 +157,11 @@
 }
 
 .upload input {
-  width: auto;
-  border: none;
-  padding: 0;
-  background: none;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
 }
 
 .findings ul {

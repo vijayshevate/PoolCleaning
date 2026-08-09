@@ -88,18 +88,22 @@ export class BookComponent {
     return days;
   });
 
-  readonly selectedService = computed(() => SERVICES.find(item => item.slug === this.serviceSlug));
+  selectedService() {
+    return SERVICES.find(item => item.slug === this.serviceSlug);
+  }
 
-  readonly selectedPlan = computed(() => this.plans.find(item => item.id === this.planId));
+  selectedPlan() {
+    return this.plans.find(item => item.id === this.planId);
+  }
 
-  readonly canAdvance = computed(() => {
+  canAdvance(): boolean {
     switch (this.step()) {
       case 1:
         return !!this.selectedDate && !!this.selectedTime;
       default:
         return true;
     }
-  });
+  }
 
   shiftMonth(offset: number): void {
     const current = this.month();
