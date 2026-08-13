@@ -124,7 +124,10 @@ export class BookComponent {
 
   next(): void {
     if (this.step() === 2) {
-      this.step.set(3);
+      this.submitted.set(true);
+      if (this.detailsValid()) {
+        this.step.set(3);
+      }
       return;
     }
     if (this.step() === 3) {

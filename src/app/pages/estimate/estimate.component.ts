@@ -128,5 +128,10 @@ export class EstimateComponent {
     this.poolSize = null;
     this.condition = null;
     this.features = [];
+    this.frequency = 'weekly';
+    this.name = '';
+    this.email = '';
+    this.phone = '';
+    this.zip = '';
   }
 }
