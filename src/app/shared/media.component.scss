@@ -1,0 +1,18 @@
+:host {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius);
+  background: linear-gradient(135deg, #e9edf5, #dde3ee);
+}
+
+:host(.media--flush-top) {
+  border-radius: var(--radius) var(--radius) 0 0;
+}
+
+img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

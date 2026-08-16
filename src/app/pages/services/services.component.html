@@ -8,7 +8,12 @@
     <div class="grid grid--3">
       @for (service of services; track service.slug) {
         <article class="card service">
-          <div class="media-placeholder service__media"><span>{{ service.name }}</span></div>
+          <app-media
+            class="service__media media--flush-top"
+            [image]="service.image"
+            ratio="16 / 10"
+            sizes="(max-width: 900px) 50vw, 360px"
+          />
           <span class="service__icon"><app-icon [name]="service.icon" [size]="20" /></span>
           <h3>{{ service.name }}</h3>
           <p class="muted">{{ service.description }}</p>

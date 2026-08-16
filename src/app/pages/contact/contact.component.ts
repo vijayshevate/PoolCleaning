@@ -1,13 +1,15 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IconComponent } from '../../shared/icon.component';
+import { MediaComponent } from '../../shared/media.component';
 import { LeadService } from '../../core/lead.service';
 import { COMPANY, SERVICE_AREAS } from '../../core/site-data';
+import { CONTACT_IMAGE } from '../../core/images';
 
 @Component({
   selector: 'app-contact',
   standalone: true,
-  imports: [FormsModule, IconComponent],
+  imports: [FormsModule, IconComponent, MediaComponent],
   templateUrl: './contact.component.html',
   styleUrl: './contact.component.scss'
 })
@@ -15,6 +17,7 @@ export class ContactComponent {
   private readonly leads = inject(LeadService);
 
   readonly company = COMPANY;
+  readonly contactImage = CONTACT_IMAGE;
   readonly areas = SERVICE_AREAS.map(area => area.city);
   readonly sent = signal(false);
   readonly submitted = signal(false);

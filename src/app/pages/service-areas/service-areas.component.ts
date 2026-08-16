@@ -2,13 +2,15 @@ import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { IconComponent } from '../../shared/icon.component';
+import { MediaComponent } from '../../shared/media.component';
 import { LeadService } from '../../core/lead.service';
 import { SERVICE_AREAS, STATS } from '../../core/site-data';
+import { SERVICE_AREA_IMAGE } from '../../core/images';
 
 @Component({
   selector: 'app-service-areas',
   standalone: true,
-  imports: [FormsModule, RouterLink, IconComponent],
+  imports: [FormsModule, RouterLink, IconComponent, MediaComponent],
   templateUrl: './service-areas.component.html',
   styleUrl: './service-areas.component.scss'
 })
@@ -16,6 +18,7 @@ export class ServiceAreasComponent {
   private readonly leads = inject(LeadService);
 
   readonly areas = SERVICE_AREAS;
+  readonly areaImage = SERVICE_AREA_IMAGE;
   readonly stats = STATS;
 
   zip = '';

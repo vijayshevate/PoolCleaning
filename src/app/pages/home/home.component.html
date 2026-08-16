@@ -21,9 +21,13 @@
       </div>
     </div>
 
-    <div class="hero__media media-placeholder">
-      <span>Sparkling pool photo</span>
-    </div>
+    <app-media
+      class="hero__media"
+      [image]="heroImage"
+      ratio="4 / 3"
+      sizes="(max-width: 900px) 100vw, 45vw"
+      [priority]="true"
+    />
   </div>
 </section>
 
@@ -37,6 +41,12 @@
     <div class="what-we-do">
       @for (service of services; track service.slug) {
         <a class="what-we-do__item" [routerLink]="['/services', service.slug]">
+          <app-media
+            class="what-we-do__media media--flush-top"
+            [image]="service.image"
+            ratio="16 / 10"
+            sizes="(max-width: 720px) 45vw, 240px"
+          />
           <span class="what-we-do__icon"><app-icon [name]="service.icon" [size]="24" /></span>
           <strong>{{ service.name }}</strong>
         </a>

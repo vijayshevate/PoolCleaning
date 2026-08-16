@@ -1,12 +1,14 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { IconComponent } from '../../shared/icon.component';
+import { MediaComponent } from '../../shared/media.component';
 import { COMPANY, STATS } from '../../core/site-data';
+import { CREW_IMAGE } from '../../core/images';
 
 @Component({
   selector: 'app-about',
   standalone: true,
-  imports: [RouterLink, IconComponent],
+  imports: [RouterLink, IconComponent, MediaComponent],
   template: `
     <section class="section">
       <div class="container about">
@@ -31,7 +33,13 @@ import { COMPANY, STATS } from '../../core/site-data';
           </ul>
           <a class="btn btn--primary" routerLink="/estimate">Get My Free Estimate</a>
         </div>
-        <div class="media-placeholder about__media"><span>Our crew</span></div>
+        <app-media
+          class="about__media"
+          [image]="crewImage"
+          ratio="4 / 3"
+          sizes="(max-width: 900px) 100vw, 45vw"
+          [priority]="true"
+        />
       </div>
     </section>
 
@@ -56,7 +64,7 @@ import { COMPANY, STATS } from '../../core/site-data';
       }
 
       .about__media {
-        min-height: 320px;
+        box-shadow: 0 20px 40px rgba(17, 38, 76, 0.16);
       }
 
       .values {
@@ -106,6 +114,7 @@ import { COMPANY, STATS } from '../../core/site-data';
 export class AboutComponent {
   readonly company = COMPANY;
   readonly stats = STATS;
+  readonly crewImage = CREW_IMAGE;
 
   readonly values = [
     { icon: 'shield', title: 'Licensed & insured', detail: 'Fully covered crews with background-checked technicians.' },
