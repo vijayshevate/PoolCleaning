@@ -3,12 +3,13 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs';
 import { IconComponent } from '../../shared/icon.component';
+import { MediaComponent } from '../../shared/media.component';
 import { PRICING_PLANS, SERVICES } from '../../core/site-data';
 
 @Component({
   selector: 'app-service-detail',
   standalone: true,
-  imports: [RouterLink, IconComponent],
+  imports: [RouterLink, IconComponent, MediaComponent],
   template: `
     @if (service(); as item) {
       <section class="section">
@@ -32,7 +33,13 @@ import { PRICING_PLANS, SERVICES } from '../../core/site-data';
           </div>
 
           <aside class="card">
-            <div class="media-placeholder"><span>{{ item.name }}</span></div>
+            <app-media
+              class="detail__media media--flush-top"
+              [image]="item.image"
+              ratio="16 / 10"
+              sizes="(max-width: 900px) 100vw, 420px"
+              [priority]="true"
+            />
             <h3>Plans that include this</h3>
             <ul class="plans">
               @for (plan of plans; track plan.id) {
@@ -117,9 +124,12 @@ import { PRICING_PLANS, SERVICES } from '../../core/site-data';
         font-size: 0.9rem;
       }
 
-      aside .media-placeholder {
-        margin-bottom: 16px;
-        min-height: 150px;
+      aside.card {
+        overflow: hidden;
+      }
+
+      .detail__media {
+        margin: -20px -20px 16px;
       }
 
       @media (max-width: 900px) {

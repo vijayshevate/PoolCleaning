@@ -7,6 +7,7 @@ import {
   ServiceItem,
   Transformation
 } from './models';
+import { BLOG_IMAGES, SERVICE_IMAGES, TRANSFORMATION_IMAGES } from './images';
 
 export const COMPANY = {
   name: 'Badass Pool Clean',
@@ -29,42 +30,48 @@ export const SERVICES: ServiceItem[] = [
     name: 'Weekly Pool Cleaning',
     description: 'Regular cleaning, skimming, vacuuming and chemical balancing so your pool is always swim-ready.',
     icon: 'droplet',
-    highlights: ['Skim & net debris', 'Vacuum floor and steps', 'Brush walls and tile line', 'Full chemical balance']
+    highlights: ['Skim & net debris', 'Vacuum floor and steps', 'Brush walls and tile line', 'Full chemical balance'],
+    image: SERVICE_IMAGES['weekly-pool-cleaning']
   },
   {
     slug: 'green-pool-cleanup',
     name: 'Green Pool Cleanup',
     description: 'Fast and effective green pool cleanup and restoration, from algae bloom back to crystal clear.',
     icon: 'leaf',
-    highlights: ['Algae shock treatment', 'Heavy debris removal', 'Filter deep clean', 'Follow-up water test']
+    highlights: ['Algae shock treatment', 'Heavy debris removal', 'Filter deep clean', 'Follow-up water test'],
+    image: SERVICE_IMAGES['green-pool-cleanup']
   },
   {
     slug: 'chemical-balancing',
     name: 'Chemical Balancing',
     description: 'Keep your water safe, comfortable and crystal clear with precise chemistry every visit.',
     icon: 'flask',
-    highlights: ['pH & alkalinity', 'Chlorine / salt levels', 'Stabilizer and calcium', 'Written water report']
+    highlights: ['pH & alkalinity', 'Chlorine / salt levels', 'Stabilizer and calcium', 'Written water report'],
+    image: SERVICE_IMAGES['chemical-balancing']
   },
   {
     slug: 'equipment-inspection',
     name: 'Equipment Inspection',
     description: 'We inspect and check all pool equipment to keep it running at peak efficiency.',
     icon: 'gauge',
-    highlights: ['Pump & motor check', 'Heater diagnostics', 'Leak inspection', 'Repair recommendations']
+    highlights: ['Pump & motor check', 'Heater diagnostics', 'Leak inspection', 'Repair recommendations'],
+    image: SERVICE_IMAGES['equipment-inspection']
   },
   {
     slug: 'filter-cleaning',
     name: 'Filter Cleaning',
     description: 'Extend the life of your filter and keep your water cleaner for longer.',
     icon: 'filter',
-    highlights: ['Cartridge deep clean', 'DE / sand service', 'Pressure test', 'O-ring replacement']
+    highlights: ['Cartridge deep clean', 'DE / sand service', 'Pressure test', 'O-ring replacement'],
+    image: SERVICE_IMAGES['filter-cleaning']
   },
   {
     slug: 'pool-drain-acid-wash',
     name: 'Pool Drain & Acid Wash',
     description: 'Remove stains and buildup to bring your pool surface back to life.',
     icon: 'sparkle',
-    highlights: ['Controlled drain', 'Acid wash surface', 'Stain and scale removal', 'Refill guidance']
+    highlights: ['Controlled drain', 'Acid wash surface', 'Stain and scale removal', 'Refill guidance'],
+    image: SERVICE_IMAGES['pool-drain-acid-wash']
   }
 ];
 
@@ -178,21 +185,27 @@ export const TRANSFORMATIONS: Transformation[] = [
     service: 'Green Pool Cleanup',
     beforeLabel: 'Before',
     afterLabel: 'After',
-    summary: 'Two weeks of algae bloom cleared in a single restoration visit plus one follow-up.'
+    summary: 'Two weeks of algae bloom cleared in a single restoration visit plus one follow-up.',
+    beforeImage: TRANSFORMATION_IMAGES.neglected.before,
+    afterImage: TRANSFORMATION_IMAGES.neglected.after
   },
   {
     title: 'Calcium-stained tile line',
     service: 'Tile Line Scrub',
     beforeLabel: 'Before',
     afterLabel: 'After',
-    summary: 'Heavy scale removed without draining the pool.'
+    summary: 'Heavy scale removed without draining the pool.',
+    beforeImage: TRANSFORMATION_IMAGES.tileLine.before,
+    afterImage: TRANSFORMATION_IMAGES.tileLine.after
   },
   {
     title: 'Cloudy water, failing filter',
     service: 'Filter Cleaning',
     beforeLabel: 'Before',
     afterLabel: 'After',
-    summary: 'Cartridge deep clean and rebalanced chemistry restored clarity in 48 hours.'
+    summary: 'Cartridge deep clean and rebalanced chemistry restored clarity in 48 hours.',
+    beforeImage: TRANSFORMATION_IMAGES.cloudyWater.before,
+    afterImage: TRANSFORMATION_IMAGES.cloudyWater.after
   }
 ];
 
@@ -223,7 +236,8 @@ export const BLOG_POSTS: BlogPost[] = [
     category: 'Pool Care',
     date: '2025-05-10',
     readMinutes: 6,
-    featured: true
+    featured: true,
+    image: BLOG_IMAGES['keep-pool-sparkling-all-summer']
   },
   {
     slug: 'how-often-clean-pool-filter',
@@ -232,7 +246,8 @@ export const BLOG_POSTS: BlogPost[] = [
     category: 'Equipment',
     date: '2025-04-28',
     readMinutes: 4,
-    featured: false
+    featured: false,
+    image: BLOG_IMAGES['how-often-clean-pool-filter']
   },
   {
     slug: 'signs-pool-needs-professional-help',
@@ -241,7 +256,8 @@ export const BLOG_POSTS: BlogPost[] = [
     category: 'Maintenance',
     date: '2025-04-15',
     readMinutes: 5,
-    featured: false
+    featured: false,
+    image: BLOG_IMAGES['signs-pool-needs-professional-help']
   },
   {
     slug: 'ultimate-guide-pool-chemicals',
@@ -250,7 +266,8 @@ export const BLOG_POSTS: BlogPost[] = [
     category: 'Chemistry',
     date: '2025-04-01',
     readMinutes: 9,
-    featured: false
+    featured: false,
+    image: BLOG_IMAGES['ultimate-guide-pool-chemicals']
   }
 ];
 

@@ -1,12 +1,13 @@
 import { Component, computed } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { IconComponent } from '../../shared/icon.component';
+import { MediaComponent } from '../../shared/media.component';
 import { BLOG_POSTS } from '../../core/site-data';
 
 @Component({
   selector: 'app-blog',
   standalone: true,
-  imports: [RouterLink, IconComponent],
+  imports: [RouterLink, IconComponent, MediaComponent],
   template: `
     <section class="section">
       <div class="container">
@@ -17,7 +18,13 @@ import { BLOG_POSTS } from '../../core/site-data';
 
         @if (featured(); as post) {
           <article class="card feature">
-            <div class="media-placeholder feature__media"><span>Featured article</span></div>
+            <app-media
+              class="feature__media"
+              [image]="post.image"
+              ratio="16 / 10"
+              sizes="(max-width: 860px) 100vw, 560px"
+              [priority]="true"
+            />
             <div>
               <p class="muted small">{{ post.date }} · {{ post.category }} · {{ post.readMinutes }} min read</p>
               <h2>{{ post.title }}</h2>
@@ -30,7 +37,13 @@ import { BLOG_POSTS } from '../../core/site-data';
         <div class="grid grid--3">
           @for (post of rest(); track post.slug) {
             <article class="card post">
-              <div class="media-placeholder post__media"><span>{{ post.category }}</span></div>
+              <app-media
+                class="post__media media--flush-top"
+                [image]="post.image"
+                ratio="16 / 10"
+                sizes="(max-width: 900px) 50vw, 360px"
+              />
+              <span class="pill">{{ post.category }}</span>
               <p class="muted small">{{ post.date }} · {{ post.readMinutes }} min read</p>
               <h3>{{ post.title }}</h3>
               <p class="muted">{{ post.excerpt }}</p>
@@ -50,13 +63,16 @@ import { BLOG_POSTS } from '../../core/site-data';
         margin-bottom: 26px;
       }
 
-      .feature__media {
-        min-height: 240px;
+      .post {
+        overflow: hidden;
       }
 
       .post__media {
-        min-height: 130px;
-        margin-bottom: 12px;
+        margin: -20px -20px 12px;
+      }
+
+      .post .pill {
+        margin-bottom: 8px;
       }
 
       .post p:last-child {

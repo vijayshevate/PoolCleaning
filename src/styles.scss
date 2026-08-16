@@ -235,13 +235,8 @@ textarea:focus {
   margin-top: 4px;
 }
 
-.media-placeholder {
-  background: linear-gradient(135deg, #e9edf5, #dde3ee);
-  border-radius: var(--radius);
-  display: grid;
-  place-items: center;
-  color: #a6b0c3;
-  min-height: 180px;
+img {
+  max-width: 100%;
 }
 
 .pill {

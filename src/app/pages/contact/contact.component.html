@@ -71,9 +71,12 @@
       </form>
     </div>
 
-    <div class="media-placeholder map">
-      <app-icon name="pin" [size]="40" />
-      <span>{{ company.address }}, {{ company.cityState }}</span>
-    </div>
+    <figure class="map">
+      <app-media [image]="contactImage" ratio="16 / 9" sizes="(max-width: 900px) 100vw, 45vw" />
+      <figcaption>
+        <app-icon name="pin" [size]="18" />
+        <span>{{ company.address }}, {{ company.cityState }}</span>
+      </figcaption>
+    </figure>
   </div>
 </section>

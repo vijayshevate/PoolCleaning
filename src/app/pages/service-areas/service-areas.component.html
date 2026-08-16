@@ -36,9 +36,10 @@
         <li class="areas__more muted">and more!</li>
       </ul>
 
-      <div class="media-placeholder areas__map">
-        <app-icon name="pin" [size]="48" />
-      </div>
+      <figure class="areas__map">
+        <app-media [image]="areaImage" ratio="16 / 9" sizes="(max-width: 900px) 100vw, 50vw" />
+        <figcaption class="muted">Thousands of valley pools, one local crew.</figcaption>
+      </figure>
     </div>
   </div>
 </section>

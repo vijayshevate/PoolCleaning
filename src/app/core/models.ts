@@ -1,9 +1,18 @@
+export interface SiteImage {
+  src: string;
+  srcset: string;
+  width: number;
+  height: number;
+  alt: string;
+}
+
 export interface ServiceItem {
   slug: string;
   name: string;
   description: string;
   icon: string;
   highlights: string[];
+  image: SiteImage;
 }
 
 export interface PricingPlan {
@@ -37,6 +46,8 @@ export interface Transformation {
   beforeLabel: string;
   afterLabel: string;
   summary: string;
+  beforeImage: SiteImage;
+  afterImage: SiteImage;
 }
 
 export interface ServiceArea {
@@ -52,6 +63,7 @@ export interface BlogPost {
   date: string;
   readMinutes: number;
   featured: boolean;
+  image: SiteImage;
 }
 
 export type PoolSize = 'small' | 'medium' | 'large' | 'xlarge' | 'unknown';
