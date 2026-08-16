@@ -16,7 +16,6 @@
 
 .ba__pane {
   position: relative;
-  min-height: 170px;
   transition: opacity 0.2s ease;
 }
 
@@ -40,10 +39,6 @@
 
 .ba__tag--after {
   background: var(--brand);
-}
-
-.ba__hint {
-  font-size: 0.8rem;
 }
 
 .ba__swap {

@@ -64,8 +64,13 @@
 }
 
 .areas__map {
-  min-height: 330px;
-  color: var(--brand);
+  margin: 0;
+}
+
+.areas__map figcaption {
+  margin-top: 10px;
+  font-size: 0.85rem;
+  text-align: center;
 }
 
 .stats {
