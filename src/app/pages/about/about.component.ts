@@ -3,7 +3,7 @@ import { RouterLink } from '@angular/router';
 import { IconComponent } from '../../shared/icon.component';
 import { MediaComponent } from '../../shared/media.component';
 import { COMPANY, STATS } from '../../core/site-data';
-import { CREW_IMAGE } from '../../core/images';
+import { ABOUT_IMAGE } from '../../core/images';
 
 @Component({
   selector: 'app-about',
@@ -35,7 +35,7 @@ import { CREW_IMAGE } from '../../core/images';
         </div>
         <app-media
           class="about__media"
-          [image]="crewImage"
+          [image]="aboutImage"
           ratio="4 / 3"
           sizes="(max-width: 900px) 100vw, 45vw"
           [priority]="true"
@@ -114,7 +114,7 @@ import { CREW_IMAGE } from '../../core/images';
 export class AboutComponent {
   readonly company = COMPANY;
   readonly stats = STATS;
-  readonly crewImage = CREW_IMAGE;
+  readonly aboutImage = ABOUT_IMAGE;
 
   readonly values = [
     { icon: 'shield', title: 'Licensed & insured', detail: 'Fully covered crews with background-checked technicians.' },

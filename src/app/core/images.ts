@@ -22,12 +22,12 @@ export const HERO_IMAGE = asset(
   'Sparkling blue backyard swimming pool beside a modern home'
 );
 
-export const CREW_IMAGE = asset(
-  'team-crew',
+export const ABOUT_IMAGE = asset(
+  'family-pool-day',
   1200,
   600,
   900,
-  'Pool service technician smiling next to a freshly cleaned pool'
+  'Two kids laughing on a float in a crystal-clear backyard pool'
 );
 
 export const SERVICE_AREA_IMAGE = asset(

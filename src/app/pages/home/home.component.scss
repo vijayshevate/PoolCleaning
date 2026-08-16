@@ -83,6 +83,8 @@
 .what-we-do__icon {
   display: grid;
   place-items: center;
+  position: relative;
+  z-index: 1;
   width: 44px;
   height: 44px;
   margin-top: -22px;

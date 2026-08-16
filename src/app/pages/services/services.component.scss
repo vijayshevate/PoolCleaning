@@ -12,6 +12,8 @@
 .service__icon {
   display: grid;
   place-items: center;
+  position: relative;
+  z-index: 1;
   width: 36px;
   height: 36px;
   margin-top: -32px;
